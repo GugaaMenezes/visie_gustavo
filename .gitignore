@@ -1,0 +1,46 @@
+# Ignora arquivos e diretórios gerados automaticamente
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignora arquivos de logs e arquivos de compilação
+*.log
+*.log.*
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+build/
+dist/
+*.egg-info/
+*.egg/
+
+# Ignora o diretório de ambiente virtual (caso você esteja usando um ambiente virtual)
+venv/
+env/
+ENV/
+venv_visie_test/
+.documents/
+
+
+
+# Ignora arquivos de configuração específicos para seu ambiente de desenvolvimento
+.env
+
+# Ignora arquivos de configuração de IDEs
+.vscode/
+.idea/
+
+# Ignora arquivos de cache de dependências e diretórios (depende do sistema e das ferramentas)
+__pyinstaller/
+.pycache/
+node_modules/
+
+
+# Ignora arquivos de configuração
+# *.ini
+
+*.sql
+*.ini
