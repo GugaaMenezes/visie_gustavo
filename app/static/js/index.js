@@ -121,3 +121,42 @@ function handleCheckboxChange(checkboxId, value) {
         dataField.value = value;
     }
 }
+
+
+async function registerPerson() {
+    const nome = document.getElementById("nome").value;
+    const rg = document.getElementById("rg").value;
+    const cpf = document.getElementById("cpf").value;
+    const data_admissao = document.getElementById("data_admissao").value;
+    const data_nascimento = document.getElementById("data_nascimento").value;
+
+    const data = {
+        nome, 
+        rg, 
+        cpf, 
+        data_admissao, 
+        data_nascimento,
+    };
+    try {
+        const response = await fetch("/api/pessoas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            alert(responseData.message);
+            window.location.reload();
+        } else {
+            const responseData = await response.json();
+            alert(responseData.message);
+            throw new Error(`Erro ao enviar os dados: ${responseData.message}`);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
