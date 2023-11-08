@@ -73,7 +73,7 @@
                                             <label class="label mb-1">RG</label>
                                             <div class="form-group">
                                                 <input class="form-control m-0" id="rg" value="{{ info_person.rg }}"
-                                                    placeholder="{{ info_person.rg }}">
+                                                    placeholder="{{ info_person.rg }}" pattern="[0-9.-]+$">
 
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                             <label class="label mb-1">CPF</label>
                                             <div class="form-group">
                                                 <input class="form-control m-0" id="cpf" value="{{ info_person.cpf }}"
-                                                    placeholder="{{ info_person.cpf }}">
+                                                    placeholder="{{ info_person.cpf }}"  pattern="[0-9.-]+$">
 
                                             </div>
                                         </div>
@@ -95,6 +95,7 @@
                                             <label class="label mb-1">Data Admissão</label>
                                             <div class="input-group mb-1">
                                                 <div class="input-group-text">
+                                                    <label class="label mb-1">Editar </label>
                                                     <input class="form-check-input mt-0" type="checkbox" id="checkbox-data_admissao" onchange="handleCheckboxChange(this.id, '{{ info_person.data_admissao }}')">
                                                 </div>
                                                 <input type="text" class="form-control" id="data_admissao" value="{{ info_person.data_admissao }}" placeholder="{{ info_person.data_admissao }}" readonly>
@@ -106,6 +107,7 @@
                                             <label class="label mb-1">Data Nascimento</label>
                                             <div class="input-group mb-1">
                                                 <div class="input-group-text">
+                                                    <label class="label mb-1">Editar</label>
                                                     <input class="form-check-input mt-0" type="checkbox" id="checkbox-data_nascimento" onchange="handleCheckboxChange(this.id, '{{ info_person.data_nascimento }}')">
                                                 </div>
                                                 <input type="text" class="form-control" id="data_nascimento" value="{{ info_person.data_nascimento }}" placeholder="{{ info_person.data_nascimento }}" readonly>
