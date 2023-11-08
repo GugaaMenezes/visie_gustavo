@@ -26,7 +26,7 @@ class PersonModels(db.Model):
             'nome': self.nome,
             'rg': self.rg,
             'cpf': self.cpf,
-            'data_nascimento': self.data_nascimento.strftime("%d/%m/%Y %H:%M:%S"),
-            'data_admissao': self.data_admissao.strftime("%d/%m/%Y %H:%M:%S"),
+            'data_nascimento': self.data_nascimento.strftime("%d/%m/%Y"),
+            'data_admissao': self.data_admissao.strftime("%d/%m/%Y"),
             'funcao': self.funcao
         }
