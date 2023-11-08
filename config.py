@@ -21,7 +21,7 @@ key = ''.join(random.choice(gen) for _ in range(12))
 # ----------------------------------------------------------------#
 
 
-SQLALCHEMY_DATABASE_URI = f'{sgbd}+mysqlconnector://{user}:{passwd}@{host}:{port}/{database}'
+SQLALCHEMY_DATABASE_URI = f'{sgbd}://{user}:{passwd}@{host}:{port}/{database}'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = key
 DEBUG = True
