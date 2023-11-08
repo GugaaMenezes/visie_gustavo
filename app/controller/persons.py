@@ -6,6 +6,7 @@ from config_log import logger
 from flask import request, jsonify
 from sqlalchemy import delete, update
 from sqlalchemy.orm import sessionmaker
+import datetime
 
 session = db.session
 
@@ -27,10 +28,13 @@ def person():
 
 def data_person(id_pessoa):
     
-    accepter_method = ["PUT", "DELETE"]
+    accepter_method = ["GET","PUT", "DELETE"]
     
     if request.method not in accepter_method:
         return jsonify({"success": False, "message": "Method Not Allowed."}), 405, {"ContentType": "application/json"}
+    
+    if request.method == "GET":
+        success_status, message_status, serialized_persons, http_code = select_person(id_pessoa)
     
     if request.method == "PUT":
         success_status, message_status, http_code, serialized_persons = update_person(id_pessoa)
@@ -98,8 +102,17 @@ def update_person(id_pessoa):
     nome = data.get("nome")
     rg = data.get("rg")
     cpf = data.get("cpf")
-    data_nascimento = data.get("data_nascimento")
-    data_admissao = data.get("data_admissao")
+    
+    try:
+        data_nascimento = datetime.datetime.strptime(data.get("data_nascimento"), "%Y-%m-%d")
+    except ValueError:
+        data_nascimento = datetime.datetime.strptime(data.get("data_nascimento"), "%d/%m/%Y").strftime("%Y-%m-%d")
+
+    try:
+        data_admissao = datetime.datetime.strptime(data.get("data_admissao"), "%Y-%m-%d")
+    except ValueError:
+        data_admissao = datetime.datetime.strptime(data.get("data_admissao"), "%d/%m/%Y").strftime("%Y-%m-%d")
+
     
     update_info_person = update(PersonModels).where(PersonModels.id_pessoa == id_pessoa).values(nome=nome, rg=rg, cpf=cpf, data_nascimento=data_nascimento, data_admissao=data_admissao)
     
@@ -107,7 +120,7 @@ def update_person(id_pessoa):
         Session = sessionmaker(bind=db.engine)
         session = Session()
         try:
-            success_status, serialized_persons, http_code = select_person(id_pessoa)
+            success_status, message_status, serialized_persons, http_code = select_person(id_pessoa)
             
             if success_status != True:
 
@@ -146,7 +159,7 @@ def delete_person(id_pessoa):
         session = Session()
         
         try:
-            success_status, serialized_persons, http_code = select_person(id_pessoa)
+            success_status, message_status, serialized_persons, http_code = select_person(id_pessoa)
             if success_status != True:
 
                 success_status = False
@@ -184,13 +197,15 @@ def select_person(id_pessoa):
     try:
         selected_person = PersonModels.query.filter_by(id_pessoa=id_pessoa).first()
         if not selected_person:
-            serialized_persons = "Person not found"
+            serialized_persons = []
             success_status = False
+            message_status = "Person not found"
             http_code = 404
-            return success_status, serialized_persons, http_code
+            return success_status, message_status, http_code
             
         serialized_persons = selected_person.serialize()
         success_status = True
+        message_status = "Person found"
         http_code = 200
         
     except Exception as e:
@@ -198,9 +213,10 @@ def select_person(id_pessoa):
         logger.error({'Erro': str(e)})
         print({'Erro': str(e)})
         success_status = False
-        serialized_persons = "Person not found"
+        serialized_persons = message_status
+        message_status = "Person not found"
         http_code = 403
         
     finally:
         session.close()
-        return success_status, serialized_persons, http_code
+        return success_status, message_status, serialized_persons, http_code
