@@ -1,21 +1,14 @@
-from app import db
-from flask import Blueprint
+from app import app
+from app.views import home
 
-from app.controller import persons
+from flask import redirect, url_for
 
 
-api = Blueprint("api", __name__)
-
-session = db.session
-
-@api.route("/", methods=["GET","POST"])
+@app.route("/")
 def index():
-    return "Welcome a my mini app - Created by Gustavo Menezes!"
+    return home.index()
 
-@api.route("/pessoas", methods=["GET","POST"])
-def person():
-    return persons.person()
+@app.route("/pessoa/<int:id_pessoa>")
+def info_person(id_pessoa):
+    return home.info_person(id_pessoa)
 
-@api.route("/pessoas/<int:id_pessoa>", methods=["PUT","DELETE"])
-def data_person(id_pessoa):
-    return persons.data_person(id_pessoa)
