@@ -11,4 +11,7 @@ def index():
 @app.route("/pessoa/<int:id_pessoa>")
 def info_person(id_pessoa):
     return home.info_person(id_pessoa)
+@app.route("/pessoa")
+def new_person():
+    return home.new_person()
 
