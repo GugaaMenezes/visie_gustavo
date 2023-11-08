@@ -22,14 +22,15 @@
 </head>
 
 <body>
-    <nav class="navbar bg-dark" data-bs-theme="dark">
-        <a class="navbar-brand" href="#">
+    <nav class="navbar bg-dark justify-content-evenly" data-bs-theme="dark">
+        <a class="navbar-brand" href="/">
             <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="38"
                 height="30" class="d-inline-block align-text-top">
             Gustavo Menezes
         </a>
+
+        <a class="btn btn-info" href="/pessoa" role="button">ADICIONAR</a>
     </nav>
-    <h1>Teste</h1>
     <div class="container">
         <div class="card dashboard-area text-center">
             <div class="card-body">
@@ -73,7 +74,7 @@
                                             <label class="label mb-1">RG</label>
                                             <div class="form-group">
                                                 <input class="form-control m-0" id="rg" value="{{ info_person.rg }}"
-                                                    placeholder="{{ info_person.rg }}" pattern="[0-9.-]+$">
+                                                    placeholder="{{ info_person.rg }}" pattern="[0-9.-]*">
 
                                             </div>
                                         </div>
@@ -83,7 +84,7 @@
                                             <label class="label mb-1">CPF</label>
                                             <div class="form-group">
                                                 <input class="form-control m-0" id="cpf" value="{{ info_person.cpf }}"
-                                                    placeholder="{{ info_person.cpf }}"  pattern="[0-9.-]+$">
+                                                    placeholder="{{ info_person.cpf }}"  pattern="[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}">
 
                                             </div>
                                         </div>
